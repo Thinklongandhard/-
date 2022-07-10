@@ -1,0 +1,46 @@
+反射总结
+
+概述：
+通过获取Class文件访问到类中的成员方法和成员变量
+
+字节码获取的三种方式
+直接类名.class
+通过对象调用getclass方法
+Class.forName(类名)
+
+反射获取构造方法并使用
+   通过Class.forName()方法获取class对象
+   通过对象.getDeclaredConstructs()返回一个Construct数组，数组里是所有构造方法
+   通过对象.getConstructs()返回一个Construct数组，数组里是所有公共的构造方法
+   通过对象.getConstruce(.class字节码文件)返回一个指定参数列表的公共构造方法
+   通过对象.getDeclaredConstruct(.class字节码文件)返回一个指定参数列表的构造方法
+
+   使用：
+      Construct对象.newInstance()创建一个构造方法
+
+反射获取成员变量并使用
+   通过class对象.getDeclaredFields()方法返回一个Field数组，数组里是所有的成员变量
+   通过class对象.getDeclaredField(String name(变量名))方法返回一个指定的Field对象
+   通过class对象.getFields()方法返回一个Field数组，数组里是所有公共的成员变量
+   通过class对象.getField(String name(变量名))方法返回一个指定的Field对象
+
+   使用：
+     通过创建对象的Object对象  obj来修改
+     Field对象名.set(obj,"要修改成的参数")
+     私有方法和默认方法涉及暴力反射
+     Field对名.setAccessible(true)暴力反射，true不会检查编译条件默认值为false
+
+反射获取成员方法并使用
+   通过对象.getDeclaredMethods()获取本类中的所有成员方法，不包括继承，返回一个数组
+   通过对象.getDeclaredMethod(方法名,方法参数)获取指定的本类中的成员方法
+   通过对象.getMethods()获取所有的成员方法，包括继承的到的所有成员方法，返回一个数组
+   通过对象.getMethod(方法名,方法参数)获取一个指定的成员方法
+
+   使用:
+     Object invoke = 成员方法对象.invoke(obj,方法参数)  obj是通过创建对象的时候创建的obj对象
+
+通过配置文件访问类对象
+   通过Properties对象来获取配置文件的内容load()方法
+   通过File流
+   获取到要访问的class名和方法名，类名，成员变量
+   实现需求

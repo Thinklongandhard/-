@@ -1,0 +1,45 @@
+总结：
+
+日期API对象的获取方式：
+  通过创建对象的方式来获取对象
+  对象的转换形式：LocalDateTime 转换LocalDate, LocalTime
+    通过两个类中的方法 toLocalDate()和toLocalTime()方法
+  LocalDateTime获取年，月，日，时，分，秒
+    通过LocalDateTime中的get方法
+  LocalTime获取时，分，秒
+    LocalTime是一个静态方法，所以可以直接通过类名调用获取时，分，秒
+  LocalDate获取年，月，日
+    通过该方法中的静态方法now()返回一个LocalDate来创建对象
+    通过对象.get方法获取相应的时间
+
+时间戳:
+  Instant instant = Instant.now();  获取时间戳
+  直接获取，得到的时间和当前时间并不一样
+  要通过Zoneld.of获取设置当前时区
+
+包装类总结 ： 见day03总结
+
+正则表达式：
+  本质是一个个字符串
+  通过正则表达式可以判断传入的字符串是否匹配正则表达式，怕的字符串是否符合我们的规则要求
+  //根据正则获取预编译器
+ Pattern pattern = Pattern.compile(regex)
+  //获取匹配器
+ Matcher matcher = pattern.matcher(rs)
+  //循环查找
+ while(matcher.find)(){
+  //获取符合要求的数据
+ System.out.println(matcher.group());
+ }
+
+Arrays工具类
+  自定义排序 public static<T> void sort(类型[] a,Comparator<?super T> c)
+  可以重写compare方法来进行自定义排序
+
+数组常见算法
+  选择排序，每轮选择当前位置，开始找出后面的比较小值与该值位置交换
+  二分查找，前提是已经排序好的，正序，倒序都行
+    每次查找都是获取数组的中间数的值，判断是大还是小，然后根据判断去相应的区间继续下次循环
+    获取中间值，知道找到与要查询的值相等的数据
+  冒泡排序，每次比较相邻两个数据之间的大小，如果左边数据大于右边，就交换位置，否则就不交换
+  每次轮回都会将最大的值放在上一轮结束位置的前一个位置

@@ -1,0 +1,32 @@
+TCP通信原理
+    TCP通信协议是一种可靠的网络协议，他在通信的两各建立一个Socket对象，从而在通信的两
+	形成网络虚拟链
+	一旦建立了虚拟的网路链路，两的程序就可以通过虚拟链路进行通信
+	java对基于TCP协议的网络提供了良的封装，使用Socket对象来代表两的通信端口，并通过Socket
+	产生IO流来进行网络通信
+	java为客户端提供了Socket类，为服务器端提供了ServerSocket类
+	TCP发送数据
+	实现步骤：
+	    创建客户端Socket对象
+		Socket（String host,int port）
+		获取输出流，写数据
+		OutputStream getOutputStream()
+		释放资源
+		void close()
+		
+	TCP接收数据
+	实现步骤
+	    创建服务器端Socket对象（ServerSocket）
+		ServerSocket(int port)
+		监听客户端连，返回一个Socket对象
+		Socket accept()
+		获取输入流，读数据，并把数据显示在控制台
+		InputStream getInputStream()
+		释放资源
+		void close()
+		
+		在我们进行网络编程是，客户端发送数据，接收服务器反馈
+		服务器接收到数据写入文本文件给出反馈，会出现程序一直等待的问题
+		
+		原因是：读数据的方式是阻塞式的
+		解决办法：自定义结束标记，使用shutdownOutput()方法来结束接收

@@ -1,0 +1,81 @@
+Stream流
+
+使用Stream流的方式完成过滤操作
+        list.stream().filter(s -> s.startsWith("张"))
+	          .filter(s -> s.length()==3).forEach(System.out::println());
+		
+		直接阅读代码的字面意思即可完美展示无关逻辑方式的语义：
+		    生成流，过滤性张，过滤长度为3，逐一打印
+			Stream流把真正的函数式编程风格引入到java中
+			
+		Stream流的生成方式
+		Stream流的使用
+		生成流：
+		    通过数据源(集合，数组等)生成流
+			list.stream()
+		中间操作：
+		    一个流后面可以跟随零个或多个中间操作，其目的主要是打开流，做出某种程度
+			的数据过滤/映射，然后返回一个新的流，交给下一个操作使用。
+			例如： filter() 就是一个中间操作方法
+		终结操作：
+		    一个流只能有一个终结操作，当这个操作执行后，流就被使用“光”了，无法在被操作。
+			所以这必定是流的最后一个操作
+			例如：forEach()方法
+			
+	生成流方式：
+	Stream流的常见生成方式
+	Collection体系的集合可以使用默认方法stream()生成流
+	    default Stream<E> stream()
+	Map体系的集合间接的生成流
+	数组可以通过Stream接口的静态方法of(T...values)生成流
+	
+	
+	【Stream流的常见中间操作方法】
+	Stream<T>filter(Predicate predicate): 用于对流中的数据进行过滤
+	    Predicate接口中的方法
+		    boolean test(T t):
+			对给定的参数进行判断，返回一个布尔值
+	Stream<T>limit(long maxSize): 
+	  //返回此流中的元素组成的流，截取前指定参数个数的数据
+	Stream<T>skip(long n):
+	  //跳过指定参数个数的数据，返回由该流的剩余元素组成的流
+	static<T> System<T>concat(Stream a,Stream b):
+	  //合并a和b两流为一个流
+	Stream<T> distinct():
+	  //返回由该流的不同元素(根据Object.equals(Object))组成的流
+	Stream<T> sorted():
+	  //返回由此流的元素组成的流，根据自然顺序排序
+	Stream<T> sorted(Comparator comparator):
+	  //返回由该流的元素注册的流，根据提供的Comparator进行排序
+	  Comparator接口中的方法  int compare(T o1, T o2)
+	<R>Stream<R>map(Function mapper):
+	  //返回由给定函数应用于此流的元素的结果组成的流
+	  Function接口中的方法   R apply(T t)
+	IntStream mapToInt(ToIntFunction mapper):
+	  //返回一个IntStream其中包含将给定函数应用于此流的元素的结果
+	  IntStream: 表示原始int流
+	  ToIntFunction接口中的方法   int applyAsInt(T value)
+	
+	
+	【Stream流的常见终结操作方法】
+	void forEach(Consumer action):
+	  //对此流的每个元素执行操作
+	  Consumer接口中的方法   void accept(T t):对给定的参数执行此操作
+	long count:
+	  //返回此流中的元素数
+	  
+	  
+	【Stream流的收集操作】
+	对数据使用Stream流的方式操作完毕后，我想把流中的数据收集到集合中，方法
+	Stream流的收集方法
+	R collect(Collector collector)
+	但是这个收集方法的参数是一个Collector接口
+	
+	工具类Collectors提供了具体的收集方式
+	    public static <T> Collector toList()
+		  //把元素收集到List集合中
+		public static <T> Collector toSet()
+		  //把元素收集到Set集合中
+		public static Collector toMap(Function keyMapper,Function valueMappeer)
+		  //把元素收集到Map集合中
+		

@@ -1,0 +1,88 @@
+反射
+
+概述：
+    java的反射机制：是指在运行时去获取一个类的变量和方法信息，然后通过获取
+	到的信息来创建对象，调用方法的一种机制，由于这种动态性，可以极大的增强
+	程序的灵活性，程序在不用编译期就完成确定，在运行期仍然可以扩 
+	
+	获取Class类的对象
+	    1、使用类的class属性来获取该类的Class对象
+		Student.class 将会返回Student类的Class对象
+		2、调用对象的getClass方法，返回该对象所属类的Class对象
+		   该方法是Object类中的方法，所有的java类都可以调用
+		3、使用Class类中的静态方法forName(String className),   灵活性高
+		   传入的参数是某个类的全路径
+		   
+		   
+	反射获取构造方法并使用
+	Class类中用于获取构造方法的方法
+	    Constructor<?>[]getConstructors()
+		  //返回所有公共的构造方法对象的数组
+		Constructor<?>[]getDeclaredConstructors()
+		  //返回所有构造方法对象的数组
+		Constructor<T>getConstructor(Class<?>...parameterTypes)
+		  //返回单个公共构造方法对象
+		Constructor<T>getDeclaredConstructor(Class<?>...parameterTypes)
+		  //返回单个构造方法对象
+		  
+	Constructor类中用于创建对象的方法
+	    T newInstance(Object...initargs)
+		  //根据指定的构造方法创建对象
+		  
+	基本数据类型也可以通过.class得到对应的Class类型
+	有参构造方法
+	    //获取有参构造方法
+	    Constructor con = c.getConstructor(String.class);
+		//创建对象
+	    Object obj = con.newInstance("linqingxia");
+		
+		
+	反射获取成员变量并使用
+	Class类中用于获取成员变量的方法
+	Field[] getFields()
+	  //返回所有公共成员变量对象的数组
+	Field[] getDeclaredFields()
+	  //返回所有成员变量对象的数组
+	Field getField(String name)
+	  //返回单个公共成员变量对象
+	Field getDeclardeField(String name)
+	  //返回单个成员变量对象
+	  
+	Field类中用于给成员变量赋值的方法
+	    void set(Object obj,Object value)
+		  //给obj对象的成员变量赋值为value
+		
+    //反射获取成员变量
+        try {
+            Class<?> c = Class.forName("JavaSEAdvance.com.luozhijia.day15.Demo5.Student");
+            //获取所有的属性getDeclaredFields，包括私有属性
+            Field[] fields = c.getDeclaredFields();
+            for (Field f : fields){
+                System.out.println(f);
+            }
+            //获取成员变量
+            Field name = c.getField("name");
+            //通过构造方法进行使用
+            Constructor<?> con = c.getConstructor();
+            //创建无参构造方法
+            Object o = con.newInstance();
+            //通过无参构造方法使用成员变量
+            name.set(o,"林青霞");  //给o对象的name成员变量进行赋值
+            //Student{name='林青霞', age=0, path='null'}
+            System.out.println(o);
+			
+	反射获取成员方法并使用
+	Class类中用于获取成员方法的方法
+	    Method[]getMethods()
+		  //返回所有公共成员方法对象的数组，包括继承的
+		Method[]getDeclaredMethods()
+		  //返回所有成员方法对象的数组，不包括继承的
+		Method getMethod(String name,Class<?>...parameterTypes)
+		  //返回单个公共成员方法的对象
+		Method getDeclardeMethod(String name,Class<?>...parameterTypes)
+		  //返回单个成员方法对象
+		  
+	Method类中用于调用成员方法的方法
+	    Object invoke(Object obj,Object...args)
+		  调用obj对象的成员方法，参数是args，返回值是Object类型
+		  

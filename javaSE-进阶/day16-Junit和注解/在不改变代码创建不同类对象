@@ -1,0 +1,57 @@
+通过注解获取读取不同字节码文件
+
+自定义注解
+  注解中定义属性信息，例如ClassName，MeutodName的String字符串方法
+   String className ();
+   String MethodName ();
+   定义@Target使其能注释在类上还有@Retention (value = RetentionPolicy.RUNTIME)
+   
+  定义测试类
+    1、添加自定义注解到class上，并将需要访问的类名和方法名信息添加
+    2、获取到测试类的class文件  Class<?> 对象名 = class.测试类名
+	3、解析注解
+	   就是在内存中创建注解中的字符串对象
+	    注解类名 实现对象名 = 对象名.getAnnotation(注解类名.class)   //获取注解接口的对象
+		//获取方法的返回值
+		String className = 实现对象名.getClassName();
+		String MetodName = 实现对象名.getMethodName();
+		//这里就已经获取到了要访问的类的全路径，和要访问的方法名
+		
+		Class<?> c = Class.forName(className);  //获取到访问类的class文件
+		//创建访问类的对象
+		Object obj = c.newInstance();  //Object类型
+		//获取访问类指定的方法
+		Metod m = c.getDeclaredMethod(MethodName);
+		//暴力反射，防止访问权限不够
+		s.setAccessible(true);
+		//访问指定的方法
+		Object o = m.invoke(obj);  //通过创建的访问类对象来访问
+		
+		
+总结：
+    在程序使用(解析)注解：获取注解中定义的属性值
+	  1、获取注解定义的位置的对象  （Class,Metod,Field）
+	  2、获取指定的注解
+	     getAnnotation(class)
+		 //其实就是在内存中生成了一个该注解接口的子类实现对象
+		 
+		    public class 实现类 implements 接口名{
+			    //实现接口中的抽象方法
+				//className = "JavaSEAdvance.com.luozhijia.day15.Demo5.Student",
+				methodName = "show"
+			    public String className(){
+				    return "JavaSEAdvance.com.luozhijia.day15.Demo5.Student";
+				}
+				public String MethodName(){
+				    return "show";
+				}
+			}
+			
+	  3、调用注解中的抽象方法获取配置的属性值
+	  
+	  小结：
+	     未来的大多数时候，我们会使用注解，而不是自定义注解
+		 注解给谁应用？
+		    编译器
+			给解析程序用
+		 注解不是程序的一部分，可以理解为注解就是一个标签

@@ -1,0 +1,24 @@
+包装类
+  Integer类包装一个对象中的原始类型int的值。
+  该方法提供了几种将int转换为String和String转换为int
+  以及其他常量和方法在处理int时非常有用
+  
+  Integer 构造方法
+    public static integer valueOf(int i)    //返回表示指定的int值的Integer
+	public static integer valueOf(String s) //返回一个保存指定值的Integer对象String
+	
+	//过时的构造方法
+	//public Integer(int value)  //根据int值创建Integer对象
+	//public Integer(String s)   //根据String值创建Integer对象
+	
+int和String的相互转换
+
+   基本类型包装类的最常见操作就是，用于基本类型和字符串之间的相互转换
+   1、int转换为String
+     public static String valueOf(int i):返回int参数的字符串表示形式
+	 该方法是String类中的方法
+   2、String转换为int
+     public static int parseInt(String s):将字符串解析为int类型，该方法
+	 是Integer类中的方法
+	 
+其他类型的包装类都是首字母大写

@@ -1,0 +1,46 @@
+特殊操作流
+    标准输入输出流：
+	    System.in
+		   //“标准”输入流，该流已经打开，准备提供输入数据，经常用于
+		      键盘输入或由主机环境或用户指定的另一个输入源
+		System.out
+		   //“标准”输出流，此流已经打开并准备好接受输出数据，通常用于
+		      
+	public static final InputStream in:   
+	  //标准输入流，通常该流对应于键盘输入或主机环境或用户指定的另一个输入源
+	public static final PrintStream out:
+	  //标准输出流，通常该流对应显示输出或由主机环境或用户指定的另一个输出目标
+	
+	输出语句的本质：  一个标准的输出流
+	    PrintStream ps = System.out;
+		PrintStream类有的方法，System.out都可以使用
+		
+打印流：
+    打印流分类：
+	    字节打印流：
+		   PrintStream
+		字符打印流：
+		   PrintWrite
+		   
+		   字符打印流的构造方法：
+		        PrintWrite(String fileName)
+				  //使用指定的文件名创建一个新的PrintWriter而不需要自动执行刷新
+				PrintWrite(Writer out,boolean autoFlush)
+				  //格式
+				    PrintWriter pw = new PrintWriter(new FileWriter
+					("javabase/src/JavaSEAdvance/com/luozhijia/day10/Demo3/IO.txt")
+					 ,true);  //传入true表示自动刷新
+
+				  //创建一个新的PrintWriter
+				      out:字符输出流
+					  autoFlush:一个布尔值，如果为真，则println,printf,或
+					  format方法将刷新输出缓冲区
+		
+	打印流特点
+	    只负责输出数据，不负责读取数据
+		有自己的特有方法
+		
+	字节打印流：  
+	    PrintStream(String fileName):
+		使用继承父类的方法写数据，查看的时候回转码，
+		使用自己的特有方法写数据，查看的数据原样输出

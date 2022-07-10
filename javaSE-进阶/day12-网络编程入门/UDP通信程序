@@ -1,0 +1,64 @@
+UDP通信程序
+ 
+    UDP通信原理：
+	    UDP协议是一种不可靠的网络协议，它在通信的两各建立一个Socket对象，
+		但是这两Socket只是发生，接收数据的对象因此对于基于UDP协议的通信
+		双方而言，没有所谓的客户端和服务器的概念。
+		
+		java提供了DatagramSocket类基于UDP协议的Socket
+	UDP发送数据
+	    步骤：
+		1、创建发送端的Socket对象（DatagramSocket）
+		2、创建数据，并把数据打包
+		3、调用DatagramSocket对象的方法发送数据
+		4、关闭发送端
+	//创建对象
+        try {
+            DatagramSocket ds = new DatagramSocket();
+            //创建数据
+            //创建数据
+            byte[] bys = "hellosdsi".getBytes();
+            DatagramPacket dp = new DatagramPacket(bys,bys.length, InetAddress.getByName("luozhijiacom"),17869);
+            //调用方法发送数据
+            ds.send(dp);
+            //关闭端口
+            ds.close();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }	
+		
+		
+	UDP接收数据
+	    步骤：
+		1、创建接收端的Socket对象（DatagramSocket）
+		2、创建一个数据包，用于接收数据
+		3、调用DategramSocket对象的方法接受数据
+		4、解析数据包，并把数据在控制台显示
+		5、关闭接受端
+	//创建对象
+        try {
+            //传一个端口号
+            DatagramSocket ds = new DatagramSocket(17869);
+            //创建一个数据包
+            //创建一个byte数组
+            byte[] bys = new byte[1024];
+            DatagramPacket dp = new DatagramPacket(bys, bys.length);
+            //调用方法接受数据
+            ds.receive(dp);
+            //解析数据
+            byte[] data = dp.getData();
+            //获取实际接收到的数据长度
+            int length = dp.getLength();
+            String datas = new String(data,0,length);
+            System.out.println(datas);
+            //关闭接受端
+            ds.close();
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }

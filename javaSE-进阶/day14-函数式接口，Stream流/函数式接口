@@ -1,0 +1,26 @@
+函数式接口
+
+概述：
+    有且仅有一个抽象方法的接口
+	java中的函数式编程体现就是Lambda表达式，所以函数式接口就是可以适用于Lambda
+	使用的接口，只有确保接口中有且仅有一个抽象方法，java中的Lambda才能顺利进行推导
+	
+	如何检测一个接口是不是函数式接口
+	通过 @FunctionLLnterface 来检测
+	放在接口定义的上方，如果接口是函数式接口，编译通过，如果不是，编译失败
+	
+	
+	注意：
+	    我们自己定义函数式接口的时候，@Functionallnetrface 是可选的，就算我们不写这个
+		注解，只有保证满足函数式接口的定义的条件，也照样是函数式接口，但是
+		【建议加上该注解】
+		
+		如果方法的参数是一个函数式接口，我们可以使用Lambda表达式作为参数传递
+		startThread(() -> {System.out.println("")});
+		
+	函数式接口作为方法的返回值
+	
+	如果方法的返回值是一个函数式接口，我们可以使用Lambda表达式作为结果返回
+	private static Comparator<String>getComparator(){
+	    return(s1,s2) -> s1.length - s2.length; 
+	}

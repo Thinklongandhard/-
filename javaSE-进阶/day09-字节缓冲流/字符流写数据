@@ -1,0 +1,31 @@
+字符流写数据
+
+    void write(int c)
+	  //写一个字符
+	void wirte(char[] cbuf)
+	  //写入一个字符数组
+	void write(char[] cbuf,int off,int len)
+	  //吸入字符数组的一部分
+	void write(String str)
+	  //写一个字符串
+	void wirte(String str,int off,int len)
+	  //写一个字符串的一部分
+	  
+字符流读数据的2中方式
+    
+	int read()
+	  //一次读一个字符数据
+	int read(char[] dbuf)
+	  //一次读一个字符数组数据
+	  
+	  
+	读写数据简便方式：
+	    FileReader :  用于读取字符文件的便捷类
+		  //FileReader(String fileName)
+		FileWrite :  用于写入字符文件的便捷类
+		  //FileWrite(String fileName)
+		  
+		[但是如果要进行自定义的解码和编码还需要使用FileOutputStream和
+		  FileInputStream]
+		  
+	

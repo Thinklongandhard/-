@@ -1,0 +1,71 @@
+List集合
+  有序集合（也称之为序列）
+  
+    1、可以精确控制列表中的每一个元素的插入位置，可以通过索引访问数据
+	2、与Set集合不同，列表通常允许重复的元素
+	
+	特点：
+	  1、有序： 
+	       存储和取出的元素顺序一致
+	  2、可重复：
+	       存储的元素可以重复
+		   
+	List集合的特有方法
+	   void add(int index,E element)
+	     //在此集合中的指定位置插入指定元素
+	   E remove(int index)
+	     //删除指定索引处的元素，返回被删除的元素
+	   E set(int index,E element)
+	     //修改指定索引处的元素，返回被修改的元素
+	   E get(int index)
+	     //返回指定索引处的元素
+
+并发修改异常
+    并发修改异常：
+	   ConcurrentModificationException
+	
+	产生原因：
+	   迭代器遍历的过程中，通过集合对象修改了集合中元素的长度，造成了迭代器
+	   获取元素中判断预期修改值和实际修改值不一致
+	
+	解决方案：
+	   用for循环遍历，然后用集合对象做对应的操作即可
+	   
+ListIterator
+   列表迭代器：
+      ListIterator
+	     通过List集合的listLterator()方法得到，所以说它是List集合
+		 特有的迭代器。
+		 
+		 用于允许程序员沿任一方向遍历列表的列表迭代器，在迭代期间修改列表
+		 并获取列表中迭代器的当前位置
+		 
+	ListIterator中的常用方法
+	    E next()
+		   返回迭代中的下一个元素
+		boolean hasNext()
+		   如果迭代具有更多元素，则返回true
+		E previous()
+		   返回列表中的上一个元素
+		boolean hasPrevious()
+		   如果此列表迭代器在相反方向遍历列表是具有更多元素，则返回true
+		void add(E e)
+		   将指定元素插入列表
+		   
+增强for循环
+   [本质：就是一个Iterator迭代器]
+    增强for: 简化数组和Collection集合的遍历
+	   1、实现Iterator接口的类允许其对象成为增强型for语句的目标
+	   2、它是JDK5之后出现的，其内部原理是一个iterator迭代器
+	   
+	增强for的格式
+	  格式：
+	    for(元素数据类型 变量名：数组或者Collection集合){
+		    //在此处使用变量即可，该变量就是元素
+		}
+		
+	  范例： 
+	     int[] arr = {1,2,3,4,5};
+		 for(int i : arr){
+		     System.out.println(i);
+		 }

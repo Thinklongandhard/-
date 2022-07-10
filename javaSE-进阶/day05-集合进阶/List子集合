@@ -1,0 +1,29 @@
+List子集合
+
+  List集合常用子类：
+       ArrayList，LinkedList
+	   
+	   
+	ArrayList：
+	   底层实现是数组
+	      查询快，增删慢
+	LinkedList：
+	   底层实现是一个双链
+	      查询慢，增删快
+		  
+	他们的基本使用方法和List集合是一样的
+	
+LinkedList集合的特有功能
+
+    public void addFirst(E e)
+	  //在该列表开头插入指定的元素
+	public void addLast(E e)
+	  //将指定的元素追加到此列表的末尾
+	public E getFirst()
+	  //返回此列表中的第一个元素
+	public E getLast()
+	  //返回此列表中最后一个元素
+	public E removeFirst()
+	  //从列表中删除并返回第一个元素
+	public E removeLast()
+	  //从此列表中删除并返回最后一个元素

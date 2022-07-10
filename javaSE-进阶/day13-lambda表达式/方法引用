@@ -1,0 +1,26 @@
+方法引用符：
+
+方法引用符
+    ::该符号为引用运算符，而它所在的表达式被称为方法引用
+	
+	Lambda表达式：usePrintable(s -> System.out.println(s));
+	   分析：拿到参数s之后通过Lambda表达式，传递给System.out.println方法去处理
+	方法引用：usePrintable(System.out::println);
+	   分析：直接使用System.out中的println方法来取代Lambda，代码更加简洁
+	   
+	推导与省略
+	    如果使用Lambda，那么根据“可推导就是可省略”的原则，无需指定参数类型，
+		也无需指定的重载形式，他们都将被自动推导
+		如果使用方法引用，也是同样可以根据上下文进行推导的
+		方法引用是Lambda的孪生兄弟
+	
+	当Lombda表达式被实例方法带的时候
+	第一个参数作为调用者，后面的参数作为方法的参数进行传递
+	
+	引用构造器
+	引用构造器就是引用构造方法
+	格式：
+	    类名：：new
+		范例：Student::new
+		
+		(String name,int age) -> {Student s = new Student(name,age);}

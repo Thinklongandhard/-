@@ -1,0 +1,84 @@
+异常
+  在程序中出现了不正常的情况
+  
+异常体系
+   Throwable
+     1、Error
+	   
+	 2、Exception
+	   （1、RuntimeException
+	   （2、非RuntimeException
+	   
+	Exception:
+	   称为异常类，表示程序本身可以处理的问题
+	   
+	   1、RuntimeException
+	      在编译期是不检查的，出现问题后，需要我们进行修改
+	   2、非RuntimeException
+	      在编译器就必须处理的，否则程序不能通过编译，不能运行
+		  
+    编译时异常和运行时异常的区别
+	   1、编译时异常：  （有可能会出现异常）
+	       必须显示处理，否则无法通过编译（在编写代码时不会显示）
+	   2、运行时异常
+	       在编写代码的时候会显示，进行处理即可
+		  
+Throwable 的成员方法：
+    public String getMessage()
+	  //返回此throwable的详细信息字符串
+	public String toString()
+	  //返回此可能抛出的简短描述
+	public void printStackTrace()
+	  //把异常的错误信息输出在控制台
+
+
+		  
+JVM异常处理方案
+    如果程序出现了问题，我们没有做任何处理，最终JVM会做默认的处理
+	   1、把异常的名称，异常原因及异常出现的位置等信息输出在了控制台
+	   
+	   2、程序停止执行
+	   
+   异常处理：
+      1、try ... catch
+	     出现异常，会自动生成一个异常类对象，该异常对象将被提交给java运行时系统
+		 当java运行时系统接收到异常对象时，会到catch中去匹配的异常类，找到后进行
+		 异常的处理。
+		 执行完毕后，继续向下执行
+		   
+	  2、throws
+	     抛出异常
+		   处理的是try...catch处理不了的异常
+		   格式：
+		     throws 异常名;
+			 
+			 注意：【throws是要跟在方法的括后面】
+			 eg:
+			    public void show()throws 异常名{
+				    方法体;
+				}
+				
+自定义异常：
+   格式：  
+     public class 异常类名 extends Exception{
+	    无参构造;
+		带参构造;
+	 }
+	 eg:
+	   public class ScoreException extends Exception{
+	       public ScoreException(){}
+		   public ScoreException(String message){
+		       super(message);
+		   }
+	   ]
+	   
+throws 和 throw 的区别
+   throws :
+      1、用在方法声明后面，跟的是异常类名
+	  2、表示抛出异常，由该方法的调用者来处理
+	  3、表示出现异常的一种可能性，并不一定会发生这些异常
+	  
+   throw：
+      1、用在方法体内，跟的是异常对象名
+	  2、表示抛出异常，由方法体内的语句处理
+	  3、执行throw一点抛出了某种异常

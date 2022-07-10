@@ -1,0 +1,52 @@
+Map集合
+  概述：
+     Interface Map<K,V>  K:键的类型；V:值的类型
+	 将键映射到值的对象；不能包含重复的键；每个键可以映射到最多一个元素
+	 
+    创建Map对象
+	   多态的形式 --> 具体实现类HashMap
+	   
+	Map集合的基本功能
+	    V put(K key,V value)
+		  //添加元素
+		V remove(Obbject key)
+		  //根据键删除键值对元素
+		void clear()
+		  //移出所有的键值对元素
+		boolean containsKey(Object key)
+		  //判断集合是否包含指定的键
+		boolean containsValue(Object value)
+		  //判断集合是否包含指定的值
+		boolean isEmpty()
+		  //判断集合是否为空
+		int size()
+		  //集合的长度，也就是集合中键值对的个数
+		  
+	Map集合的获取功能
+	    V get(Object key)
+		  //根据键获取值
+		Set<K> keySet()
+		  //获取所有键的集合   //因为键一定是唯一的所以会返回一个Set集合
+		Collection<V> values()
+		  //获取所有值的集合   //因为没有明确说明value的值会不会重复，所以用Collection集合
+		  
+	Map集合的遍历（方法1）
+	    Map集合集合中存储的元素都是成对出现的，所以我们把Map集合看成是以个夫妻对的
+		集合
+		
+		遍历方法：
+		    1、获取所有键的集合，用keySet()方法去实现
+			2、遍历键的集合，获取到每一个键，用增强for实现
+			3、根据键去找值，用get(Object key)方法实现
+			
+	Map集合的遍历（方法2）
+	    Map集合中的元素都是成对出现的，所以我们把Map看成是一个夫妻对的集合
+		
+		遍历方法：  
+		    1、获取所有键值对对象的集合
+			    Set<Map.Entry<K,V>>entrySet(): 获取所有键值对对象的集合
+			2、遍历键值对对象的集合，得到每一个键值对对象
+			    用增强for实现，得到每一个Map.Entry
+			3、根据键值对对象获取键和值
+			    使用getkey()方法获取key
+				使用getvalue()方法获取value

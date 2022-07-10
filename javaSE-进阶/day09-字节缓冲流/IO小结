@@ -1,0 +1,39 @@
+IO流小结
+    
+	字节流：
+	    字节输入流：
+		InputStream
+		    FileInputStream
+			BufferedInputStream
+			
+			
+		字节输出流：
+		OutputStream
+		    FileOutputStream
+			BufferedOutputStream
+			
+	字节流可以复制任意文件数据，有四种方式，一般采用字节缓冲流
+	一次读写一个字节数组的方式
+	
+	字符流：
+	    字符输入流：
+		Reader  （抽象类）
+		    InputStreamReader
+			    FileReader: (InputStreamReader的子类)
+			BufferedReader:
+			    有一个特有方法：
+				    String readLine()
+					一次读取一个字符串
+					
+					
+		字符输出流：
+		Writer  （抽象类）
+		    OutputStreamWriter
+			     FileWriter:(OutputStreamWriter的子类)
+			BufferedWriter
+			    void newLine()
+				    写一个换行符
+				void write(String line)
+				    一次写一个字符串
+		    
+	字符流只能复制文本数据，有5中方式，一般采用字符缓冲流的特有功能

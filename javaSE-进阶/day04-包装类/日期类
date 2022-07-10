@@ -1,0 +1,106 @@
+日期类
+   
+1、Date类
+	   public  class Date   //不是静态的，可以有子类，创建对象进行调用
+	   extends Object
+	   实现接口：Serializable, Cloneable, Comparable<Data>
+	   
+	   Date类代表了一个特定的时间，以毫秒的精度
+	   
+	构造方法：
+	   1、public Date()
+	       //分配一个 Date对象并对其进行初始化，以便它表示分配的时间，
+		   //测量到最近的毫秒。 
+	   2、public Date(long date)
+	       //分配一个 Date对象，并将其初始化为表示从标准基准时间（称为“时代”）
+	       //即1970年1月1日00:00:00 GMT起的指定毫秒数。
+	   
+	Date 类常用的方法
+	   public long getTime()  
+	     //获取的是日期对象从1970年1月1日00:00:00到现在的毫秒值
+	   public void setTime(long Time)
+	     //设置时间，给的是毫秒值
+		 
+		 eg:                                              (获取当前时间)
+		    date = System.currentTimeMillis();   //System.currentTimeMillis()
+            d.setTime(date);                     
+              //设置时间
+            System.out.println(d);
+			
+			
+2、SimpleDateFormat类
+   是一个具体的类，用于以区域设置敏感的方式格式化和解析日期
+   （允许从选择日期时间格式化的任何用户定义的模式开始。）
+   （建议创建一个日期时间格式（getTimeInsatance和getDateInstance或
+                               getDateTimeInstance在DateFormat））
+							   
+	常用的模式字母及对应关系：
+	    y    年
+		M    月
+		d    日
+		H    时
+		m    分
+		s    秒
+		
+    构造方法：  
+	   public SimpleDateFormat()
+	     //构造一个SimpleDateFormat，使用默认模式和日期格式
+	   public SimpleDateFormat(String pattern)
+	     //构造一个SimpleDateFormat，使用给定的模式和默认的日期格式
+		 
+      SimpleDateFormat格式化和解析日期
+	     1、格式化（从Date到String）
+		   public final String format(Date date)
+		     //将日期格式化成日期/时间字符串
+		 2、解析（从String到Date）
+		   public Date parse(String source)
+		     //从给定字符串的开始解析文本以生成日期
+			 
+3、Calendar类概述
+   是一个日历类 
+      //返回给定日历字段的值
+        int i = c.get(Calendar.YEAR);
+        int i1 = c.get(Calendar.MARCH) + 1;
+        int i2 = c.get(Calendar.DATE);
+        System.out.println(i + "年" + i1 + "月" + i2 + "日");
+
+   是一个抽象类： 
+      可以为在某一个特定时刻和一组之间的转换的方法calender fields 如
+	    YEAR MONTH DAY_OF_MONTH HOUR等
+		
+   Calendar的getInstance方法返回一个Calendar对象，
+        其日历字段已使用当前日期和时间进行初始化：
+	   Calendar rightNow = Calendar.getInstance();
+	   
+    Calendar的常用方法
+	   public int get(int field)
+	     //返回给定日历字段的值
+	   public abstract void add(int field,int amount)
+	     //根据日历的规则，将指定的时间量添加或减去给定的日历字段
+		 eg:  
+		    //amount：-3 返回现在的年份 +- amount的值
+            //需求：三年前的今天
+            //c.add(Calendar.YEAR,-3);
+
+            //需求2: 10年后的5天前
+              c.add(Calendar.YEAR,-10);
+              c.add(Calendar.DATE,-5);
+              int i = c.get(Calendar.YEAR);
+              int ii = c.get(Calendar.DATE);
+              System.out.println(i + "年" + ii + "日");
+			  //当前时间 ： 2022年16日
+			  //返回结果 ： 2012年11日
+		 
+	   public final void set(int yera,int month,int date)
+	     //设置当前日历的年月日
+		 
+		 eg： 
+		    c.set(2018,6,16);
+            int i = c.get(Calendar.YEAR);
+            int ii = c.get(Calendar.MARCH);
+            int iii = c.get(Calendar.DATE);
+            System.out.print(i + " ");
+            System.out.print(ii + " ");
+            System.out.print(iii + " ");
+			//输出：2018 6 16 
+		 

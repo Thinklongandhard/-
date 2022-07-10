@@ -1,0 +1,33 @@
+线程安全的类
+   
+    StringBuffer --> StringBuilder
+	    线程安全，可变的字符序列
+		从版本JDK5开始，被StringBuilder代替。通常应该使用StringBuilder类，
+		因为它支持所有相同的操作，但它更快，因为它不执行同步
+		
+		
+	Vector -->  ArrayList
+	//这里的Vector被更简洁的方法代替了，用的并不多
+    List<String> list = Collections.synchronizedList(new ArrayList<String>());
+    //这个类中的方法虽然没有加锁，但是实现了同步代码块
+	    从java2平台v1.2开始，该类改进了List接口，使其成为Java Collections Framework
+		的成员。与新的集合实现不同，Vector被同步。如果不需要线程安全的实现。
+		建议使用ArrayList集合代替Vector
+		
+		
+	方案一：	
+    和list一样，使用Colletcions这个工具类syn方法类创建个线程安全的set.
+        Set<String> synSet = Collections.synchronizedSet(new HashSet<>());
+    方案二：
+    使用JUC包里面的CopyOnWriteArraySet
+        Set<String> copySet = new CopyOnWriteArraySet<>();
+	
+	
+	Hashtable --> HashMap
+	//这里的Hashtable被更简洁的方法代替了，用的并不多
+    Map<String,String> map = Collections.synchronizedMap(new HashMap<String,String>());
+	//这个类中的方法虽然没有加锁，但是实现了同步代码块
+		该类实现了一个哈希表，它将键映射到值，任何非null对象都可以用作键或者值
+		从java2平台v1.2开始，该类进行了改进，实现了Map接口，使其成为
+		java Collections Framework 的成员。与新的集合实现不同，Hashtable被同步、
+		如果不需要线程安全的实现，建议使用HashMap代替Hashtable
