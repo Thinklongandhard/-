@@ -1,0 +1,64 @@
+day08
+
+API :
+  应用程序编程接口
+   （提前写好的类，提前写好的方法）
+   JDK中提供的各种功能的java类。
+   
+String：
+   java程序中，所有的双引号字符串，都是String这个类的对象
+   
+   字符串是常量，他们的值在创建后不能更改
+   只能是覆盖替换
+   
+   String常见的构造方法：
+      1、public String()  无参构造
+	  2、public String(char[] chs) 
+	     根据字符数组的内容，来创建字符串对象
+	  3、public String(String original)
+	     根据传入的字符串内容，来创建字符串对象
+	  4、String s = "abc";
+	     根据赋值的方法创建字符串对象。
+		 
+	【注意：String这个类比较特殊，打印其对象名的时候，
+	  不会出现内存地址，而是该对象所记录的真实内容。】
+	  
+	 以“”方式给出的字符串，只要字符序列相同（顺序和大小写），无论在
+	 程序代码中出现几次，JVM都只会建立一个String对象，并在字符串常量池中维护
+	 
+  字符串常量池： 当使用双引号创建字符串对象的时候，系统会检查改字符串是否在
+       字符串常量池中存在。
+	   不存在：创建
+	   存在：不会重新创建，而是直接复用。
+	   
+	   常量优化机制：
+	      String s1 = "abc";
+		  String s2 = "a" + "b" + "c";
+		  根据常量优化机制，在编译的时候就会自动将“a” + "b" + "c"拼接为“abc”
+		  所有 s1 == s2 结果为true
+		  
+	String方法小结：
+	   public boolean equals(Object obj)   比较内容，严格区分大小写
+	   public boolean equalslgnoreCase(String anotherString)  忽略大小写，比较内容
+	   public int length()            返回字符串的长度
+	   public char charAt(int index)  返回指定索引处的char值
+	   public char[] toCharArray()    将字符串拆分为字符数组后返回
+	   public String substring(int beginIndex,int endIndex)
+	      根据开始和结束索引就行截取得到新字符串（包含头，不包含尾）
+	   public String substring(int beginIndex)
+	      从传入的索引处截取，截取到末尾
+	   public String replace(CharSequence target,CharSequence replacement)
+	      使用新值，将字符串中的旧值替换
+	   public String[] split(String regex)
+	      根据传入的规则切割字符串，得到字符串数组
+		  
+StringBuilder
+    是一个可变的字符串类，我们可以把它看成一个容器
+	（可变）
+	作用：提高字符串的操作效率
+	
+	方法：
+	  public StringBuilder append(任意类型)  添加数据
+	  public StringBuilder reverse()         返回相反的字符序列
+	  public String toString()               
+	  实现吧StringBuilder 转换为String
