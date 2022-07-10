@@ -1,0 +1,43 @@
+表单域
+（用来收集用户信息）
+
+包含表单元素的区域叫做表单域
+<form>标签来定义表单域
+
+<form action="url 地址" method=“提交方式” name="表单域名称">
+
+               各种表单元素控件
+
+</form>
+action:属性值，url地址，指定接收和处理表单数据的服务器程序地址
+method:属性值，get/post，表单数据的提交方式，取值为get或者post
+name:属性值，名称，指定表单名称，用来区分一个页面中不同的表单域
+
+表单标签：
+<input type="" >
+type属性：
+按钮：button，（通常用于javaScript启动脚本）
+文本:   text，（输入文本，默认宽度为20个字符）
+隐藏的输入字段：password，（密码字段，字符被隐藏）
+复选框：CheckBox，（多选框）
+单选按钮：radio
+value：提示值
+提交按钮：submit（提交）、、
+
+
+代码实现：
+form和input结合使用
+    <form action="">
+        <h3>表单</h3>
+        姓名：<input type="text"> <br>
+        性别: 男<input type="radio" /> 女<input type="radio"> <br>
+        密码：<input type="password"> <br>
+        隐藏的输入字段：<input type="hidden" value="123"> <br>
+        爱好：篮球<input type="checkbox"> 跑步<input type="checkbox"> 婷婷<input type="checkbox"> <br>
+        提交:<input type="submit" value="提交"> <br>
+        <!-- 点击提交按钮，把form表单元素里的值提交给后台服务器 -->
+        重新输入：
+        <input type="reset">
+        上传头像:<input type="file">
+        <!-- 上传文件 -->
+    </form>

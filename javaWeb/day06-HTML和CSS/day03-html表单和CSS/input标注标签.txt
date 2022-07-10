@@ -1,0 +1,34 @@
+标注标签
+
+label标签用于绑定一个表单元素
+<label>标签用于绑定一个表单元素，当点击其内的文本时，浏览器就会自动将
+光标移动到对应的表单元素上，
+
+语法：
+<label for="sex">男</label>
+<input  type="radiio" name="sex" id="sex" />
+（注：input中的id的属性必须和label中的for的属性相同）
+
+下拉表单标签
+
+
+格式：
+    <select>
+        <option>李婷</option>
+        <option selected="select">罗志嘉</option>
+        <option>仝</option>
+    </select>
+
+selected="select"锁定表单元素，默认选项
+
+
+文本域标签元素
+
+可以定义多行文本输入的控件
+
+语法：
+    <h2>文本域</h2>
+    <textarea name="" id="" cols="30" rows="10">
+        <!-- cols 每行可以放多少个字符，rows，显示多少行 -->
+        我是罗志嘉，我现在21了
+    </textarea>

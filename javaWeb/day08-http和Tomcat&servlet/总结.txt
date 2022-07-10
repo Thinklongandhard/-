@@ -1,0 +1,60 @@
+总结
+Tomcat概念
+  是一个轻量化的web服务器软件，web项目放在服务器中才能被外界访问到
+  发布/部署：将web项目进行打包，打包成war包的形式，直接放在webapps文件夹中就可以了
+
+maven Tomcat插件
+  在pom配置文件中天剑Tomcat7插件
+  格式： 在<project>标签中添加插件
+  <build>
+    <plugins>
+      <plugin>
+	//添加插件
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+	//修改端口号和编码规则
+        <configuration>
+          <port></port>
+          <uriEncoding></uriEncoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+Servlet 
+  是JavaEE的规则之一本质上是一个接口
+  概念：是服务器中的一个java程序，动态web资源。用来接收客户端请求并对客户端做出响应
+
+创建Servlet ：
+  第一步，添加依赖，要设置作用域范围，因为在web服务器中会提供该依赖，如果打包的war包
+   中有该依赖会报错，所以作用域范围要设为provided
+  第二步，创建一个java文件，实现Servlet接口或者继承HTTPService
+
+Servlet访问流程：
+  浏览器发送请求访问服务器Servlet时，服务器会创建Servlet对象，执行Servlet方法接受请求和做出响应
+  由于Servlet是在被请求的时候进行创建对象，可以设置在启动服务器时就创建Servlet对象，以免当
+  Servlet数据过多时，造成的资源损耗和时间的浪费：loadOnStartup可以更改Servlet的启动时机
+  当loadOnStartUp为0和负整数时，就是默认情况，在收到请求时才创建对象，当设置值为
+  正整数时，Servlet对象会在服务器启动时创建对象
+
+Servlet生命周期
+  默认情况下：在收到Servlet请求时进行创建Servlet对象，该阶段为实例化阶段，只执行一次
+  初始化阶段：执行init方法，实例化完成后执行，只执行一次，用来加载配置文件和项目需要的资源数据
+  服务阶段：执行Servlet方法，接收请求，根据接收的请求进行响应
+  销毁阶段：执行destory方法，服务器正常关闭时执行，只执行一次，用来释放资源
+Servlet访问路径通过url-pattern来配置
+  精确配置，以/开头，也是最常用的访问方式，目录匹配：以/开头，/*结尾，比如：/user/* 或者  /*
+  
+
+HTTP 概念：
+  客户端和服务器之间通信的规则，用于规定传输的数据格式
+  请求数据有七种不同的格式，都可以通过HttpServlet进行相应的处理，现在只学了get和post两种方式
+  get请求：请求行(get请求参数在请求行中)，请求头中
+  post请求：请求的数据参数在请求体中
+
+  响应数据格式：响应行，响应头，响应体，
+  不同的状态码 ：2xx代表访问成功，4xx客户端错误，比如客户端请求一个不存在的资源
+  5xx ：服务器端错误，处理发送错误，比如服务器端抛出异常，路由出错，HTTP版本不支持等
+   404表示访问路径不正确，403表示客户端没有访问权限，拒绝访问
+   500表示后台java代码异常

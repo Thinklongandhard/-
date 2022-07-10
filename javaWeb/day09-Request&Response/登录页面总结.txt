@@ -1,0 +1,23 @@
+登录界面总结：
+  
+环境搭建：
+  准备数据库文件，创建表。添加数据
+  创建项目，使用模板创建web maven项目，添加maven依赖，sevlect,maven,mybatis,mysql依赖
+  添加准备好的静态页面数据，加载到webApp目录下
+  添加mybatis的核心配置文件，设置账户名，密码，
+  创建实现类对象，创建实现类的接口对象，编写SQL查询的抽象方法，如果有多个参数传递要使用
+    @Param("SQL语句中的占位对象")，来修改接收到的传递的参数名
+  然后在形同路径下的resources包下创建接口的xml文件
+  
+实现：
+  创建servlet类，继承httpServlet类，重写doGet 和 doPost方法
+  先设置访问路径@WebServlet("/路径名")，接收数据
+  如果有汉字，接收的数据会出现乱码，可以通过编码，转为字节码，然后在解码为浏览器的编码方式
+  连接mybatis，可以在官网复制获取SqlSessionForatey对象，注意mybatis的核心配置文件路径
+  核心配置文件的路径如果在resources根目录下，可以直接写"mybatis-config.xml"，如果不是，
+  在前边添加相应的包名
+  然后获取SqlSession对象，
+  通过SQLSession对象，调用getMapper方法，获取mapper对象，加载创建的SQL接口的字节码文件
+  通过mapper对象加载SQL查询抽象方法，传入需要的数据得到相应的实现类对象
+  有了实现类对象，就可以释放SqlSession资源，然后对实现类对象进行操作
+  判断登录是否成功可以判断获取到的实现类对象是否为空，如果为空，就没有得到数据，登录失败

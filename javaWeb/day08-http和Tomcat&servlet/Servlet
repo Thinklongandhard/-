@@ -1,0 +1,140 @@
+Servlet
+
+Servlet 是java提供的一门动态web资源开发技术
+
+Servlet 是JavaEE规范之一，其实就是一个接口，将来我们需要
+定义Servlet类实现 Servlet接口，并由 web服务器运行 Servlet
+
+Servlet 快速入门：
+  创建 web项目，导入 Servlet依赖坐标
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>4.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+  创建：定义一个类，实现Servlet接口，并重写接口中所有方法，并在 servlet 方法中输入
+   一句话
+   public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+        System.out.println("hello servlet~");
+    }
+  配置：在类上使用@WebServlet注解，配置该 Servlet 的访问路径
+	@WebServlet("/demo1")
+	public class ServletDemo1 implements Servlet {
+	}
+  访问：启动 Tomcat，浏览输入URL访问该 Servlet
+	http://localhost:8080/javaApp-Demo1/demo1
+	
+Servlet执行流
+  Servlet 由谁创建？ Servlet方法由谁调用？
+    servlet 由web服务器创建， Servlet方法由web服务器调用
+  服务器怎么知道 Servlet 中一定有 service方法？
+    因为我们自定义的Servlet，必须实现 Servlet接口并复写其方法，
+	而 Servlet 接口中有 service方法
+	
+
+Servlet 生命周期
+  对象的生命周期指一个对象从被创建到被销毁的整个过程
+  Servlet运行在Servlet容器(web服务器)中，其生命周期由容器来管理，分为四个阶段
+      //@WebServlet(urlPatterns = "访问路径",loadOnStartup = 1)
+	  //负整数：第一次被访问时创建Servlet对象
+	  //0或正整数：服务器启动时创建 Servlet对象，数字越小优先级越高
+    加载和实例化：
+	  默认情况下，当 Servlet第一次被访问时，由容器创建 Servlet对象
+	初始化：
+	  在 Servlet实例化之后，容器将调研 Servlet的init()方法初始化这个对象，完成
+	  一些如加载配置文件，创建连等初始化的工作，该方法只调用一次
+	请求处理：
+	  每次请求 Servlet时， Servlet 容器都会调用 Servlet 的 service()方法对请求
+	  进行处理
+	服务终止：
+	  当需要释放内存或者容器关闭时，容器就会调用 Servlet 实例的 detory()方法完成
+	  资源的释放。在 detory()方法调用之后，容器会释放这个 Servlet实例，该实例随后
+	  会被java的垃圾收集所回收
+	  
+	  
+Servlet 方法介绍
+  初始化方法，在 Servlet被创建时执行，只执行一次
+    void init(ServletConfig config)
+  提供服务方法，每次 Servlet被访问，都会调用该方法
+    void service(ServletRequest req,ServletResponse res)
+  销毁方法，当 Servlet被销毁时，调用该方法。在内存释放或服务器关闭时销毁 Servlet
+    void destroy()
+  获取 ServletConfig 对象
+    ServletConfig getServletConfig()
+  获取 Servlet 信息
+    String getServletInfo()
+	
+	
+Servlet体系结构
+  我们将来开发B/S架构的web项目，都是针对HTTP协议
+  所以我们自定义Servlet，会继承HttpServlet
+  Servlet   		--> Servlet 体系根接口
+     ^
+	 |
+  GenericServlet	--> Servlet 抽象实现类
+     ^
+	 |
+  HttpServlet		--> 对HTTP协议封装的Servlet实现类
+  
+  
+HttpServlet 中为什么要根据请求方式的不同，调用不同方法？
+  HTTP协议有七种不同的请求方式，每一种请求方式返回的结果并不相同
+  所以我们需要用不同的方法去处理不同的请求
+
+如何调用
+  通过do请求方式 来调用不同的方法
+  
+HttpServlet 使用步骤
+  继承HttpServlet
+  重写doGet 和 doPost 方法
+HttpServlet 原理
+  获取请求方式，并根据不同的请求方式，调用不同的doXxx方法
+  
+  
+Servlet urlPatterns 配置
+  Servlet 想要被访问，必须配置其访问路径(urlPattern)
+  
+  一个 Servlet ，可以配置多个 urlPattern
+    @WebServlet(urlPatterns = {"/demo5","/demo6"})
+    
+  urlPattern 配置规则
+    精确匹配：
+	  @WebServlet("/user/select")
+	  访问路径：localhost:8080/web-demo/user/select
+	目录匹配 
+	  @WebServlet("/user/*")
+	  访问路径：localhost:8080/web-demo/user/aaa
+	            localhost:8080/web-demo/user/bbb
+	扩匹名匹配
+	  @WebServlet("*.do")
+	  访问路径：localhost8080/web-demo/aaa.do
+	            localhost8080/web-demo/bbb.do
+	任意匹配
+	  配置路径：@WebServlet("/")
+	            @WebServlet("/*")
+	  访问路径：localhost:8080/web-demo/hehe
+	            localhost:8080/web-demo/haha
+	/和/*区别：
+	    当我们的项目中Servlet配置了“/”，会覆盖掉Tomcat中的DefaultServlet，当其他的
+		url-pattern都匹配不上时都会走这个Servlet
+		当我们项目中配置了“/*”，意味着匹配任意访问路径
+		
+    优先级：
+	  精确路径 > 目录路径 > 扩展名路径 > /* > /
+	  
+XML 配置方式编写Servlet
+  Servlet从3.0版本后开始支持使用注解配置，3.0版本前只支持XML配置文件的配置
+  方式
+  
+  步骤：
+    编写Servlet类
+	在web.xml中配置该Servlet
+	  <servlet>
+	     <servlet-name>demo5</servlet-name>
+		 <servlet-class>com.itheima.web.servlet.ServletDemo5</servlet-class>
+	  </servlet>
+	  <servlet-mapping>
+	     <servlet-name>demo5</servlet-name>
+		 <url-pattern>/demo5</url-pattern>
+	  <servlet-mapping>

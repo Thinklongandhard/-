@@ -1,0 +1,73 @@
+MyBatis
+
+javaEE的三层架构：
+   表现层，业务层，持久层
+   表现层：做页面展示的
+   业务层：做业务处理
+   持久层：将数据保存到数据库的那一层代码
+   
+框架：
+   框架就是一个半成品软件，是一套可重用的，通用的，软件基础代码模型
+   在框架的基础之上构建软件编写更加高效，规范，通用，可扩展
+   
+什么是MyBastis
+    MyBatis是一款优秀的持久层框架，用于简化JDBC开发
+	MyBatis本是Apache的一个开源项目iBatis,2010年这个项目由apache software
+	foundation迁移到了 google code，并且改名为MyBatis.2013年11月迁移到Github
+	
+MyBatis免除了几乎所有JDBC代码以及设置参数和获取结果集的工作
+
+查询uesr表中所有数据
+    创建user表，添加数据
+	创建模块，导入坐标
+	编写MyBatis核心配置文件 --> 替换连接信息，解决硬编码问题
+	编写SQL映射文件 --> 统一管理sql语句，解决硬编码问题
+	编码
+	   定义pojo类
+	   加载核心配置文件，获取SqlSessionFactory对象
+	   获取SqlSession对象，执行SQL语句
+	   释放资源
+	   
+	解决SQL映射文件的警告提示
+	   产生原因：idea和数据库没有建立连，不识别信息
+	   解决方式：在idea中配置MySQL数据库连
+	   
+MyBatis代理开发
+    目的
+	   解决原生方式中的硬编码
+	   简化后期执行SQL
+	   
+	使用Mapper代理开发的步骤
+	   定义与SQL映射文件同名的Mapper接口，并且将Mapper接口和SQL映射文件
+	    放置在同一目录下
+	   设置SQL映射文件的namespace属性为Mapper接口权限定名
+	   在Mapper接口中定义方法，方面名就是SQL映射文件中sql语句的id，并且
+	    保证参数类型和返回值类型一致
+	   编码
+	      通过SqlSession 的 getMapper 方法获取 Mapeer接口的代理对象
+		  调用对应方法完成sql的执行
+		  
+	细节：如果Mapper接口名称和SQL映射文件名称相同，并在同一目录下，则可以
+	使用包扫描的方式简化SQL映射文件的加载
+	
+MyBatis核心配置文件
+     类名别名：
+	  //类型别名可为 Java 类型设置一个缩写名字。 
+	  //它仅用于 XML 配置，意在降低冗余的全限定类名书写。
+	 <typeAliases>  可以扫描全包，简化书写
+	    可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean
+	 
+	配置各个标签时，需要遵循前后顺序
+	 configuration（配置）
+		properties（属性）
+		settings（设置）
+		typeAliases（类型别名）
+		typeHandlers（类型处理器）
+		objectFactory（对象工厂）
+		plugins（插件）
+		environments（环境配置）
+			environment（环境变量）
+				transactionManager（事务管理器）
+				dataSource（数据源）
+		databaseIdProvider（数据库厂商标识）
+		mappers（映射器）

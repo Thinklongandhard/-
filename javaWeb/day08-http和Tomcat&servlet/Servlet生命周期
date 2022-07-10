@@ -1,0 +1,56 @@
+Servlet生命周期
+
+Servlet 生命周期
+  对象的生命周期指一个对象从被创建到被销毁的整个过程
+  Servlet运行在Servlet容器(web服务器)中，其生命周期由容器来管理，分为四个阶段
+      //@WebServlet(urlPatterns = "访问路径",loadOnStartup = 1)
+	  //负整数：第一次被访问时创建Servlet对象
+	  //0或正整数：服务器启动时创建 Servlet对象，数字越小优先级越高
+    加载和实例化：
+	  默认情况下，当 Servlet第一次被访问时，由容器创建 Servlet对象
+	初始化：
+	  在 Servlet实例化之后，容器将调研 Servlet的init()方法初始化这个对象，完成
+	  一些如加载配置文件，创建连等初始化的工作，该方法只调用一次
+	请求处理：
+	  每次请求 Servlet时， Servlet 容器都会调用 Servlet 的 service()方法对请求
+	  进行处理
+	服务终止：
+	  当需要释放内存或者容器关闭时，容器就会调用 Servlet 实例的 detory()方法完成
+	  资源的释放。在 detory()方法调用之后，容器会释放这个 Servlet实例，该实例随后
+	  会被java的垃圾收集所回收
+	  
+	  
+//urlPatterns = "访问地址"
+@WebServlet(urlPatterns="/demo2",loadOnStartup = 1)  //验证成功
+public class ServletDemo2 implements Servlet {
+
+    /*
+    调用时机：在第一次Servlet被请求时使用
+    运行次数：1次
+        loadOnStartup 注解中设置init调用时机，0到负整数是默认调用，正整数是web服务器创建时调用
+        //验证成功
+             init....
+            七月 07, 2022 3:52:50 下午 org.apache.coyote.AbstractProtocol start
+            信息: Starting ProtocolHandler ["http-bio-8080"]
+
+     */
+    public void init(ServletConfig servletConfig) throws ServletException {
+        System.out.println("init....");
+    }
+    /*
+    每次请求 service 服务时调用该方法
+    请求几次就调用几次该方法
+     */
+    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+        System.out.println("hello servlet~");
+    }
+
+    /**
+     * 调用时机：内存被释放，和服务器要关闭时会调用该方法
+     * 使用次数：1次
+     * 当服务器要关闭时，Servlet实例要释放资源，这时候就会调用destroy方法来释放资源
+     * @return
+     */
+    public void destroy() {
+        System.out.println("啊~结束了");
+    }

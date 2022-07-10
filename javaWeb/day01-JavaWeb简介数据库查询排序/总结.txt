@@ -1,0 +1,79 @@
+总结
+
+DDL:
+   操作数据库，操作表
+
+   操作数据库，
+      创建
+            create database if not exists 数据库名
+      查询
+            show database 数据库名
+      查看
+            select database() 数据库名 
+            使用数据库
+            ues 数据库名
+      删除
+            drop database if exists 数据库名
+  
+  操作表
+    创建
+       create table 表名( 列表1  数据类型1，列表2  数据类型2 ....);
+    查询
+        select 数据列表 from 表名
+    修改
+        修改表名
+            alter table 表名 rename to 新的表名
+        添加一列
+            alter table 表名 add 列名 数据类型
+        修改数据类型
+            alter table 表名 modify 列名 新的数据类型
+        修改列名和数据类型
+            alter table 表名 change 列名 新的列名 新的数据类型
+        删除列
+            alter table 表名 drop 列名
+    删除
+        drop table if  exists 表名;
+
+DML增删改
+  对表中的数据进行增删改
+  添加数据
+     给指定列表添加数据
+         insert into 表名(列名1，列名2....) values(值1，值2....)
+     给全部列表条件数据
+         insert into 表名(（全部列名）) values(值1，值2....)
+     批量添加数据
+         insert into 表名(列名1，列名2....) values(值1，值2....)，(值1，值2....)，......
+  修改数据
+     update 表名 set  列名1 = 值1，列名2 = 值2，...[where 条件]
+  删除数据
+     delete from 表名 [where 条件]
+     （如果不加条件就会删除全部数据）
+
+DQL查询
+select  查询列名 from 表名列表 where 查询条件 group by 按照分组的列名 having 分组后的条件 order by 排序字段 limit 分页限定
+  基础查询
+     查询多个字段  select 列名1，列名2... from 表名；
+     去除重复 select default 列名1，列名2....from 表名;
+     添加别名 select 列名1，列名2....from 表名 as 别名  （as可以省略，可以别名.列名）
+  条件查询
+     用where筛选条件 !=, >, <, >=, <= , <> =, is ,is not (null值不能用=和!=来判定要用is 或者 is not)
+     模糊查询 select 列名1，列名2....from 表名 where 列名 like 模糊查询条件; 单个字节: '_' 任意字节: '%'
+  分组查询
+     group by 要分组的字段 having 分组后的条件
+  排序查询
+     order by 分组字段（ASC升序和DESC降序）
+  聚合查询
+     count(列名)  统计数量
+     max(列名)  最大值
+     min(列名)   最小值
+     avg(列名)   平均值
+     sum(列名)  求和
+    select 聚合函数,（列名1，.....）from 表名 where 条件
+  分页查询
+    select * from 表名 limit 0,3；（第一个值是起始索引，第二个值是每页最大容纳数据量）
+    计算公式 ：起始索引 = （当前页码-1） *  每页显示的条数
+
+MySQL数据库优点
+   都是使用表结构，格式一致，易于维护
+   使用通用的SQL语言操作，使用方便，可用于复杂查询
+   数据存储在磁盘中，安全

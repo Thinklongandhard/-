@@ -1,0 +1,81 @@
+Maven
+
+Maven是专门用于管理和构建java项目的工具，它的主要功能有：
+    提供一套标准化的项目结构
+	提供了一套标准化的构建流（编译，测试，打包，发布）
+	提供了一套依赖管理机制
+	
+	Maven提供了一个标准的项目结构  
+	所有IDE使用Maven构建的项目结构完全一样所有IDE创建的Maven项目可以通用
+	
+Maven是一个项目管理和构建工具，它基于项目对象模型pom的概念，通过一段描述
+ 信息来管理项目的构建，报告和文档
+ 
+  Maven中的仓库分类：本地仓库，中央仓库，远程仓库
+    本地仓库：自己计算机上的一个目录
+	中央仓库：有Maven团队维护的全球唯一的仓库
+	远程仓库：一般由公司团队搭建的私有仓库
+  当项目中使用坐标引入对应依赖的jar包后，首先会查找本地仓库中是否有对应的jar包
+    如果有，则在项目中直接引用
+	如果没有，则去中央仓库中下载对应的jar包到本地仓库
+  还可以搭建远程仓库，将来jar包的查找顺序则变为：
+    本地仓库 -> 远程仓库 -> 中央仓库
+	
+Maven 常用命令
+    compile ：编译
+	clean ：清理
+	test ： 测试
+	package ：打包
+	install ：安装
+	
+Maven生命周期
+     Maven构建项目生命周期描述的是一次构建过程经历了多少事件
+	 Maven对项目构建的生命周期划分为3套
+	    clean 清理工作
+		default 核心工作，例编译，测试，打包，安装
+		site 产生报告，发布站点等
+	同一生命周期内，执行后边的命令，前边的所有命令会自动执行
+	
+	
+Maven配置
+    IDEA中配置环境
+	  选择IDEA中 File --> Setting
+	  搜索 maven
+	  设置IDEA使用本地安装的Maven，并修改配置文件路径
+	  
+Maven坐标详解：
+    什么是坐标
+	   Maven中的坐标是资源的唯一标识
+	   使用坐标定义项目或引入项目中需要的依赖
+	Maven坐标主要组成
+	   groupld：定义当前 Maven项目隶组织名称(通常是域名反写,例: com.itheima)
+	   artifactld: 定义当前 Maven项目名称(通常是模块名称,例：order-service,goods-service)
+	   version: 定义当前项目版本号
+	   
+	使用坐标导入jar包
+	  在pom.xml文件中编写<dependencies>标签
+	  在<dependencies>标签中 使用<dependency> 引入坐标
+	  定义坐标的 groupld,artifactld,version
+	  点击刷新按钮，使坐标生效
+	  
+	使用坐标导入jar包-自动导入
+	  选择idea中 File -> Setting
+	  在弹出的面板中找到Build Tools
+	  选择Any changes 点击 ok 即可生效
+	  
+	使用坐标导入jar包-快捷方式
+	  在pom.xml中按 alt+insert 选择Dependency
+	  在弹出的面板中搜索对应坐标，然后双击选中对应坐标
+	  点击刷新按钮，坐标生效
+	  
+依赖：
+    通过设置坐标的依赖范围，可以设置对应 jar包的作用范围，编译环境，测试环境
+	运行环境
+	
+	依赖范围：  默认是 compile 
+	compile  编译，测试，运行
+	test     测试
+	provided 编译，测试
+ 	runtime  测试，运行
+	system   编译，测试
+	import   引入DependencyManagement

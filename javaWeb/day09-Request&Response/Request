@@ -1,0 +1,75 @@
+Request对象(请求)
+ 
+  Request ：获取请求数据
+  Response ：设置响应数据
+  
+Request 继承体系
+  ServletRequest   		--> java提供的请求对象根接口
+      ^
+      |
+  HttpServletRequest	--> java提供的对Http协议封装的请求对象接口
+	  ^
+	  |
+  RequestFacade			--> Tomcat定义的实现类
+  
+  Tomcat需要解析请求数据，封装为request对象，并且创建request对象传递
+  到service方法中（使用哪个web服务器软件，哪个软件就要接收响应并封装数据
+   所以使用哪个web服务器就要由哪个web服务器提供响应的实现类）
+  使用request对象，查阅javaEE API文档的HttpServletRequest接口就可以
+  
+Request 获取请求数据
+  请求数据分为3部分： 
+    请求行： GET/request-deom/req1?uesrname=zhangsan HTTP/1.1
+	  String getMethod			: 获取请求方式：GET
+	  String getContextPath		：获取虚拟路径(项目访问路径) /request-demo
+	  StringBuffer getRequestURL: 获取URL(统一资源定位符) http://localhost8080/request-demo/req1
+	  String getRequestURI		：获取URI(统一资源标识符) /request-demo/req1
+	  String getQueryString		：获取请求参数(GET方式) uesrname=zhangsan
+	  
+	请求头： User-Agent:Mozilla/5.0 Chrome/91.0.4472.106
+	  String getHeader(String name): 根据请求头名称，获取值
+	请求体
+	  ServletInputStream getInputStriem()	：获取字节输入流
+	  BufferedReader getReader() 			：获取字符输入流
+	  
+	  
+post请求和get请求除了获取请求参数的代码不相同，其他的方法都是相同的
+所以是不是可以通过一种统一获取请求参数的方式，从而统一doGet和doPost方法内的代码
+  Request对象提供的通用的方式获取请求参数
+    Map<String,String[]> getParameterMap():   获取所有参数Map集合
+	String[] getParameterValues(String name): 根据名称获取参数值（数组）
+	String getParameter(String name): 		  根据名称获取参数值(单个值)
+	
+	
+中文乱码情况
+  POST请求方式
+    Post 底层使用的是字符出入流，他的编码方式和我们页面编码方式UTF-8不同，
+	 所以修改了编码方式就可以解决
+	通过setCharacterEncoding方法来修改编码规则
+  Get请求方式
+    Get请求的获取数据用的getQueryString方法是由Tomcat提供的实现类，
+	Tomcat底层使用的编码规则是ISO-8859-1和网页的编码规则不同，而且Tomcat并没有
+	提供一个接口可以用来改变编码规则，已经写死了，但是，我们可以通过将
+	Tomcat解码后的结果再进行编码转化为字节数组的方式，在通过String构造器
+	将字节数组，转化为UTF-8的编码方式进行输出，就解决了中文乱码问题
+	
+
+URL编码实现方式：
+  编码：
+    URLEncoder encode(str,"utf-8");
+  解码：
+    URLDecoder.decode(s,"ISO-8859-1");
+	
+请求转发：
+  请求转发：一种在服务器内部的资源跳转方式  //forward
+    实现方式：
+	  req.getRequesDispatcher("资源B路径").forward(req,resp);
+  
+  请求转发资源间共享数据：使用Request对象
+    void setAttribute(String name,Object o) : 存储数据到 request域中
+	Object getAttribute(String name) ：根据key，获取到值
+	void removeAttribute(String name) ： 根据key，删除该键值对
+请求转发特点：
+  浏揽器地址栏路径不会发生改变
+  只能转发到当前服务器的内部资源
+  一次请求，可以在转发的资源间使用request共享数据

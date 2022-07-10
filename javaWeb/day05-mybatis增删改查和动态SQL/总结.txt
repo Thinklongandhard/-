@@ -1,0 +1,59 @@
+总结
+
+查询所有：
+  存在问题：表的列名(两个单词之间是_连接的)和实体类中的驼峰命名规则不同
+  解决办法： 
+   1、可以使用起别名的方式
+      可以使用SQL语句片段
+        缺点：都很不灵活
+   2、使用resultMap标签来实现
+    <resultMap id = "该标签的标识" type = "返回值类型" >
+          <result column = "SQL语句中的名字" property = "实体类中的属性名" />
+    </resiltMap>
+
+查询详情：
+  根据id进行查询，编写SQL语句时需要用到占位符，占位符使用 #{属性名} 该占位符可以预防SQL注入问题
+  
+添加属性，需要返回自增主键时需要添加两个参数
+  //useGeneratedKeys = "true" 表示需要获取自增的主键id值
+  //keyProperty = "id" 表示将主键id的值设置到参数对象的id属性中
+  <update id="Insert" useGeneratedKeys="true" keyProperty="id">
+
+修改某些字段
+  需要进行判断修改了那些字段，可以使用mybatis<set>标签，set标签可以避免连接符问题和分隔符问题
+   <where>标签嵌套<set>标签使用
+  <set>标签嵌套<if>标签使用
+
+动态SQL查询
+  动态多条件查询
+    使用<where>标签嵌套<if>进行判断来实现
+    if 标签中的 test 参数里判断的参数名要和属性名相同
+  动态单条件查询
+    需要使用mybatis中的<choose>标签 ，choose标签相当于switch语句
+    choose中有<when>标签： when标签相当于switch中的case语句
+    choose中的<otherwise>标签：相当于switch中的default语句
+    一般不会使用otherwise标签，可以使用where标签嵌套choose标签使用
+
+动态SQL删除
+  批量删除
+    可以定义一个集合，会将选中的数据就行累加，在删除的SQL语句中进行遍历
+    <delete id = "SQL语句的唯一标识">
+	delete from tb_brand where id in 
+                // separator 表示间隔符  open 开头拼接字符串 close 结束时拼接字符串
+                <foreach collection = "遍历数组名" item = "要遍历的属性" separator = ","  open = "(" close = “)”>
+	         #{id}
+	</foreach>
+    </delete>
+
+
+注解方式执行CRUD
+   注解的方式只能完成简单的SQL操作，复杂的操作还是需要使用xml配置文件来实现
+   使用方式
+     直接在接口类中定义方法，在方法上加入相应的注解@Select @Insert @Update @Delete
+
+
+
+MyBatis底层分析
+  MyBatis动态代理分析：
+     将mapper的class全路径限定名称作为Key，将代理对象作为value存到一个mapper中。
+     调用getMapper方法是直接根据Key就能获取代理对象了。

@@ -1,0 +1,109 @@
+总结
+
+JDBC概述
+  官方提供的一个标准连接数据库第三方软件的接口规则
+  各个数据库厂商通过实现这个接口，可以实现一段java代码，可以在不同的数据库中运行的操作
+  使用方式就是通过导入不同数据库厂商的jar包进行连接数据库
+  我们是面向接口进行编程
+
+JDBC入门
+  步骤
+    注册驱动
+    Class.forName("com.mysql.jdbc.Driver");
+    连接数据库
+    url 是数据库连接的固定写法
+    url = "jdbc:mysql://127.0.0.1:3306/数据库名?条件1....."
+    Connection conn = DriverManger.getConnection(url,uesrname,password);
+    定义SQL语句
+    String sql = “SQL语句”;
+    //获取执行SQL的对象
+   Statement stmt = conn.createStatement();
+   //执行SQL语句
+   int coun = stmt.executeUpdate(); //DDL语句
+   ResultSet rs = stmt.executeQuery();
+   //处理返回结果
+   //释放资源
+   rs.close();
+   stmt.close();
+   conn.close();
+
+JDBC API详解
+
+  DriverManager：注册驱动
+    如果是连的本机MySQL服务器，并且MySQL服务默认端口是3306，则URL可以省略内容
+      jdbc:mysql:///数据库名称?参数键值对&.....
+    配置uesSSL = false 参数，禁用安全连接方式，解决警告提示
+
+  Connection：获取执行SQL的对象
+    得到connection对象
+    Connection conn = DriverManager.getConnection()
+    得到statement对象，statement可以执行SQL语句的对象
+    Statement stmt = conn.createStatement()
+    执行SQL语句
+    stmt.executeQuery()/executeUpdate()
+    事务管理
+      开启事务
+        setAutoCommit(boolean autoCommit()  //更改设置，是否开启事务，true为自动提交
+      提交事务
+        Commit();
+      回滚事务
+        rollback();
+
+  Statement
+    作用：执行SQL语句
+    int executeUpdate();
+     //返回值是影响的行数
+    ResultSet executeUpdate();
+     //返回值是结果集对象
+
+  PreparedStatement
+   作用：预编译SQL并执行SQL
+   获取prepareStatement对象
+    通过Connection可以得到preparestatement对象
+  该对象用于接收一个SQL语句进行预编译，传入的SQL语句可以使用?来作为占位符来代替传入参数
+  再通过set去修改？中的值
+
+  preparestatement可以开启预编译，但是默认情况下预编译的功能是关闭状态，
+  所以我们要手动开启预编译
+  参数键值对： uesServerprestmts = true  开启预编译
+
+  preparedstatement原理
+    在获取到该对象时，将SQL语句发送给MySQL服务器进行检查和预编译（编译的步骤很耗时）
+    通过预编译后，在执行的时候就不用再进行这些步骤了，效率更高，速度更快
+    如果SQL语句的模板一样，则只需要进行一次检查，编辑就可以了
+
+  数据库连接池
+   数据库连接池和线程池的概念差不多，是专门用来管理数据库连接的对象，在应用程序中不需要
+   新建立一个数据库连接对象
+   好处：
+     资源重用  提升系统响应速度  避免数据库连接遗漏
+   数据库连池实现
+    标准接口 ：DataSource
+	  官方SUN提供的数据库连标准接口，由第三方组织实现此接口
+	  功能：获取连接
+	  Connection getConnection()
+	常见的数据库连池
+	  DBCP
+	  C3P0
+	  Driud
+	Druid(德鲁伊)
+	  Driud连是阿里巴巴开源的数据库连池项目
+	  功能强大，性能优秀，是java语言最好的数据库连池之一
+	  
+   使用Driud步骤
+     导入jar包 druid-1.1.12.jar
+	定义配置文件
+	加载配置文件
+	获取数据库连池对象
+	获取连接
+
+    使用过程： 通过配置文件来实现
+      Properties prop = new Properties();
+        try {
+            prop.load(new FileInputStream("配置文件路径"));
+
+             //DruidDataSourceFactory.createDataSource()可以通过传入一个properties对象或者map集合来获取相应的信息
+            DataSource dataSource = DruidDataSourceFactory.createDataSource(prop);
+ 
+            //获取数据库连接
+            Connection conn = dataSource.getConnection();

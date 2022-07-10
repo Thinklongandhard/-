@@ -1,0 +1,84 @@
+JDBC API 详解
+
+DriverManager
+    注册驱动
+	  Class.forName（"com.mysql.jdbc.Driver"）;
+	  Driver源码中的静态代码块
+	  static {
+        try {
+		    //通过 DriverManager中的 registerDriver方法注册驱动
+            DriverManager.registerDriver(new Driver());
+        } catch (SQLException var1) {
+            throw new RuntimeException("Can't register driver!");
+        }
+      }
+	注意：在MySQL5之后的驱动包，可以省略注册驱动的步骤
+	      自动加载jar包中META-INF/services/java.sql.Driver文件中的驱动类
+	获取连接
+	  static Connection    getConnection(String url,String user,String password)
+	  url连接路径
+	  语法：jdbc:mysql://IP地址(域名):端口号/数据库名称?参数键值对1&参数键值对2...
+	  示例：jdbc:mysql://127.0.0.1:3306/dp1
+	  细节：
+	    如果连的是本机MySQL服务器，并且MySQL服务默认端口是3306，则url可以简写为
+		 jdbc:mysql:///数据库名称?参数键值对1&参数键值对2....
+		配置useSSL = false 参数，禁用安全连方式，解决警告提示
+		
+Connection
+    获取执行SQL的对象
+	  普通执行SQL对象
+	  Statement createStatement()
+	  预编译SQL的执行SQL对象：防止SQL注入
+	  PreparedStatement paepareStatement(sql)
+	  执行存储过程的对象
+	  CallableStatement prepareCall(sql)
+	事务管理
+	  MySQL事务管理
+	    开启事务：BEGIN / START TRANSACTION
+		提交事务：commit
+		回滚事务：rollback
+	  JDBC事务管理：Connection接口中定义了3个对应的方法
+		开启事务：setAutoCommit(boolean autoCommit):true为自动提交事务，false为手动提交事务，即为开启事务
+		提交事务：commit();
+		回滚事务：rollback();
+		
+Statement
+    Statement作用：
+	  执行SQL语句
+	执行SQL语句
+	  int executeUpdate(sql)：执行DML，DDL语句
+	  返回值：DML语句影响的行数 DDL语句执行后，执行成功也可能返回0
+	  ResultSet executeQuery(sql)：执行DQL语句
+	  返回值：ResultSet结果集对象
+	  
+PreparedStatement
+    PreparedStatement作用
+	  预编译SQL并执行SQL语句
+	获取 paepareStatement 对象
+	  //SQL语句中的参数值，使用?占位符替代
+	  String sql = "select * from usename = ? and password = ?";
+	  //通过Connection对象获取，并传入对应的SQL语句
+	  PreparedStatement pstmt = conn.prepareStatement(sql);
+	设置参数值
+	  PreparedStatement对象：setXxx(参数1，参数2): 给？赋值
+	  Xxx: 数据类型；如 setInt(参数1，参数2)
+	  参数
+	     参数1: ?的位置编号，从1开始
+		 参数2: ?的值
+	执行SQL
+	  executeUpdate()/executeQuery(); : 不需要再传递sql
+	  
+	  
+PreparedStatement原理
+    PreparedStatement好处：
+	  预编译SQL，性能更高
+	  防止SQL注入：将敏感字符串进行转义
+	  
+	PreparedStatement 预编译功能开启 uesServerPrepStmts = true
+	
+	PreparedStatement原理
+	  在获取PreparedStatement对象时，将sql语句发送给MySQL服务器
+	   进行检查，编译(这些步骤很耗时)
+	  执行时就不用再进行这些步骤了，速度更快
+	  如果sql模板一样，则只需要进行一次检查，编译
+	

@@ -1,0 +1,19 @@
+HTML概述
+   html：超文本标记语言（标志语言）
+
+浏览器内核（渲染引擎）：读取网页内容，整理讯息，计算网页的显示方式并显示页面
+
+IE : Trident 内核
+Firefox ： Gecko内核
+Safari :   Webkit内核
+chrome/Opera :   Blink内核
+
+Web标准： 结构（Structure）、表现（Presentation）和行为（Behavior）
+
+结构： 对网页元素进行整理和分类，，HTML
+表现： 设置网页元素的版式，颜色，大小等外观样式 ，CSS
+行为： 网页模型的定义及交互的编写，  ，javascript
+
+Web标准：
+         注：Web标准提出的最佳体验方案： 结构，样式，行为相分离。
+（结构写到HTML文件中，表现写在CSS文件中，行为写到javaScript文件中）

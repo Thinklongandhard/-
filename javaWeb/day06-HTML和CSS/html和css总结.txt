@@ -1,0 +1,39 @@
+总结：
+
+  html实现css方式：
+    在html的语句标签中设置一个id属性，在body标签中定义一个<style>标签
+    <style>标签中的语句题就是css语言，我们可以通过id来去修改指定的html元素
+    设置指定html标签的颜色，大小，等属性
+    列子： html语句：  <div id = "name">我是div</div>
+    css访问html语句： <style>  #name{ font-color : red }  </style>  //将字体颜色设置为红色
+  第二种方式：
+    CSS直接通过html标签名称来访问，去修改html的格式
+    例子： html语句： <div> 我是div </div>
+	CSS语句	 <style> div{  color : red  } </style>  //通过访问div标签名来修改属性
+
+  设置图片占屏幕的比例
+    <img src="URL地址(图片地址)" width = 100%>  //展屏比100%
+  列表的使用：
+    无序列表： <ul>   自定义列表 ： <dl>   有序列表： <ol>
+    无序列表和有序列表中只能使用<li>标签   自定义列表中的标签时<dt(项目或者名称)> <dd(主体)>
+
+  表格标签：使用<table> 标签
+    <table> 标签中使用 <tr>设置行数，有几个<tr>标签就有几行数据
+    <tr>标签中可以设置<td>  和  <th>两种标签，<th>标签是定义表头，一般放在第一个<tr>标签中使用
+    <td>是定义主体，在哪个<tr>标签中都可以使用
+    每个<hr>标签中有几个<td>或者<th>标签，就代表该行有几列数据
+
+  表单标签：<form>标签创建一个表单，里边的表单元素有<input>，<select>，<textarea>
+    <input>是最常用的标签，input标签中有type元素，选定我们要选择元素类型，
+    有radio单选，checkbox多选字段，text，password密码字段，file定义文件上传。hidden定义隐藏输入字段
+    radio单选需要在标签中定义name  ：例如  <radio  name = "sex">  <radio name = "sex">
+    表示两个单选关联起来了，只能选一个
+    submit定义提交按钮，会将数据发送到数据库，reset定义重置按钮，重置表单中所有数据
+    button定义可以点击的按钮，可以定义返回类型，和JavaScript连用才能发挥他的功能
+
+  表单的get和post请求： get请求有数据量限制，不能大于2KB，是因为受URL 长度的限制
+    get直接通过键值对的形式上传表单数据，在URL中直接可以看到
+    get安全性非常低，post安全性较高。但是执行效率却比Post方法好。
+    get是从服务器上获取数据，post是向服务器传送数据。
+    post是通过HTTP post机制，将表单内各个字段与其内容放置在HTML HEADER内一起传送到ACTION属性所指的URL地址
+    。用户看不到这个过程。

@@ -1,0 +1,16 @@
+html
+
+<input>: 表单项，通过type属性控制输入形式
+<select>：定义下拉列表，<option>定义列表项
+<textarea>：文本域
+
+input中的type属性：
+  text:  默认值，定义单行输入字段
+  password:  定义密码字段
+  radio:  定义单选按钮
+  checkbox:  定义复选框
+  file:  定义文件上传按钮
+  hidden:  定义隐藏的输入字段
+  submit:  定义提交按钮，提交按钮会把表单数据发送到服务器
+  reset:  定义重置按钮，重置按钮会清楚表单中的所有数据
+  button:  定义可点击按钮

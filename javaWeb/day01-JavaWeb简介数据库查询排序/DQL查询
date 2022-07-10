@@ -1,0 +1,112 @@
+DQL
+查询语法
+
+SELECT
+  字段列表
+FROM
+  表名列表
+WHERE
+  条件列表
+GROUP BY
+  分组字段
+HAVING
+  分组后条件
+ORDER BY
+  排序字段
+LIMIT
+  分页限定
+  
+    基础查询
+	  查询多个字段
+	    select 查询字段,查询字段,... from 表名;
+	  去除重复
+	    select distinct 字段列表,字段列表,... from 表名;
+	  添加别名
+	    select 字段列表 as 别名,字段列表 as 别名,... form 表名;
+		//as 关键字可以省略，但是字段列表和别名之间至少要空一格
+		
+		
+	条件查询(WHERE)
+	  通过where添加筛选添加
+	    常用的有 > , < , >= , <= , <> = , != , is ,is not,
+	  -- 注意null值的比较不能用 = 或者 != 符号，要用 is ,is not来比较
+	  
+	  模糊查询：like
+	    通配符
+		 _: 代表担任任意字符
+		 %: 代表任意个数字符
+		eg:
+		  -- 查询名字中包含'德'的学员信息
+	      select distinct id,name,age,sex,address,math,english,hire_date 
+		  from stuDemo where name like '%德%';
+		  
+		  
+	分组查询(GROUP BY)
+	  分组查询语法：
+	    select 字段列表 from 表名 [where 分组前条件限定] 
+		group by 分组字段名 [having 分组后添加过滤];
+		
+	  注意：分组之后，查询的字段为聚合函数和分组字段，查询其他字段无任何意义
+	  
+	    where 和 having 区别：
+		    执行时机不一样，where是分组之前进行限定，不满足where条件，则不参与分组，
+			而having是分组之后对结果进行过滤
+			可判断的条件不一样，where不能对聚合函数进行判断，having可以。
+			
+		执行顺序
+		    where > 聚合函数 > having
+			
+			
+	排序查询(ORDER BY)
+	  排序查询语法
+	    select 字段列表 from 表名 order by 
+		排序字段名1[排序方式],排序字段名2 [排序方式2] ..;
+		
+	  排序方式：
+	    ASC: 升序排列(默认值)
+		DESC: 降序排列
+		
+	 注意：如果有多个排序条件，当前变的条件值一样时，才会根据第二个条件进行排序
+	 
+	 聚合函数
+	    概念：
+		   将一列数据作为一个整体，进行纵向计算
+		   
+		聚合函数分类：
+		   count(列名)  统计数量(一般选用不为null的列)
+		   max(列名)    最大值
+		   min(列名)    最小值
+		   sum(列名)    求和
+		   avg(列名)    平均值
+		聚合函数语法：
+		   select 聚合函数名(列名) from 表；
+		注意：null值不参与所有聚合函数运算
+		   
+		   
+	分页查询(LIMIT)
+	  分页查询语法
+	    select 字段列表 from 表名 limit 起始索引，查询条目数
+		   起始索引：从0开始
+		   
+		计算公式：起始索引=(当前页码-1) * 每页显示的条数
+		eg: 
+		   -- 从0开始查询，查询3条数据
+	select name from stuDemo limit 0,3;
+	
+	-- 每页显示3条数据，查询第1页数据
+	select distinct id,name,age,sex,address,math,english,hire_date 
+	from stuDemo limit 0,3;
+	
+	-- 每页显示3条数据，查询第2页数据
+	select distinct id,name,age,sex,address,math,english,hire_date 
+	from stuDemo limit 3,3;
+	
+	-- 每页显示3条数据，查询第3页数据
+	select distinct id,name,age,sex,address,math,english,hire_date 
+	from stuDemo limit 6,3;
+		
+		
+		tips:
+		   分页查询limit是MySQL数据库的方言
+		   Oracle分页查询使用rownumber
+		   SQL Server分页查询使用top

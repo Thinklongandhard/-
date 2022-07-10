@@ -1,0 +1,32 @@
+DOM对象
+
+Document Object Model 文档对象模型
+将标记语言的各个组成部分封装为对象
+   Document : 整个文档对象
+   Element ：元素对象
+   Attribute ：属性对象
+   Text ：文本对象
+   Comment ：注释对象
+   
+javaScript 通过DOM，就能够对HTML进行操作了
+   可以改变HTML元素的内容
+   改变HTML元素的样式
+   可以对HTML DOM 事件作出反应 
+   添加和删除HTML元素
+   
+DOM是W3C的标准： 它定义了访问HTML和XML文档的标准，
+  标准被分为3个不同的部分
+    核心DOM ： 针对任何结构化文档的标准模型
+	  Document 
+	  Element 
+	  Attribute
+	  Text 
+	  Comment
+	XML DOM ： 针对XML文档的标准模型
+	HTML DOM ：针对HTML文档的标准模型
+	  image ：<img>
+	  Button : <input type = 'button'>
+
+通过查询文档来找需要用到的方法
+  有一些对象没有相应的信息可以查看DOM element对象的文档
+  所有对象都继承该对象，所以可以使用DOM element的基础方法

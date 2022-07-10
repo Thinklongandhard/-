@@ -1,0 +1,68 @@
+Response 对象
+
+使用response对象来设置响应数据
+
+ServletResponse			：java提供的请求对象根接口
+	^
+	|
+HttpServletResponse		：java提供的对Http协议封装的请求对象
+	^
+	|
+ResponseFacade			：Tomcat定义的实现类
+
+Response 设置响应数据功能介绍
+  响应数据分为3部分
+    响应行 : HTTP/1.1 200 OK
+	  void setStatus(int sc) : 设置响应状态码
+	响应头 : Content-Type: text/html
+	  void setHeader(String name,String value) : 设置响应头键值对
+	响应体 : <html><head><head><body></body></html>
+	  PrintWriter getWriter() ：获取字符输出流
+	  ServletOutputStream getOutputStream() ：获取字节输出流
+	  
+Response 完成重定向
+  重定向(Redirect) : 一种资源跳转方式
+    浏览器向资源A发送请求，资源A发现处理不了数据返回一个状态码302，并将能处理
+	该数据的地址返回浏览器（响应头: location : xxx），浏览器接收到数据后自动去
+	请求资源B.
+	
+  实现方式：
+    resp.setStatus(302);
+	resp.setHeader("location","资源B的路径")  //location是固定的不能改变
+	  //重定向的简化操作
+      resp.sendRedirect("/javaApp-Demo2/rep2");
+	
+重定向特点：
+  浏览地址栏路径发生变化
+  可以重定向到任意位置的资源（服务器内部，外部都可以）
+  两请求，不能再多个资源使用request共享数据
+重定向和转发的区别：
+  浏览器的地址栏会发生改变，
+  转发只能在服务器内部进行，重定向既可以在内部，也可以重定向到外部
+  转发可以进行request数据共享，重定向不能数据共享
+  
+  
+  
+web中的路径问题：
+  首先要明确路径要给谁使用：
+    浏览器使用：需要加虚拟目录(项目访问路径)
+	服务端使用：不需要加虚拟路径
+	
+	例如：
+	  <a href= "路径">  ：加虚拟路径
+	  <from action = "路径"> ：加虚拟路径
+	  req.getRequestDispatcher("路径") ：不加虚拟路径
+	  resp.sendRedirect("路径") ：加虚拟路径
+	  
+Response 响应字符数据
+  使用getWriter方法获取字符输入流，
+  通过setContentType()方法可以设置响应方式，和编码规则
+  setContentType方法只能传入一个字符串数据传递方式 “响应方式;charset=编码规则”
+  charset是用来设置编码规则的，
+  
+Response 响应字节数据
+  创建一个字节输出流来将目标文件读出来，再通过 response对象来将数据作为响应写入页面
+  通过FileInputStream读数据，response.OutputStream来写数据
+  可以通过导入依赖的方式，简化copy的过程
+  <commons-io> 来简化io流的操作流
+  

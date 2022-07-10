@@ -1,0 +1,40 @@
+JDBC简介
+
+JDBC概念：
+    JDBC就是使用java语言操作关系型数据库的一套API
+	全称（java database connectivity）java数据库连
+JDBC本质：
+    官方(sun公司)定义的一套操作所有关系型数据库的规则，即接口
+	各个数据库厂商去实现这套接口，提供数据库驱动jar包
+	我们可以使用这套接口(JDBC)编程，真正执行的代码是驱动jar包中的实现类
+JDBC好处：
+    各数据库厂商使用相同的接口，java代码不需要针对不同数据库分别开发
+	可随时替换底层数据库，访问数据库的java代码基本不变
+	
+JDBC快速入门
+  步骤
+            //注册驱动
+            Class<?> mysql = Class.forName("com.mysql.jdbc.Driver");
+            
+            //获取连接 (这里的URL是固定写法，3306/要连接的表)
+            String url = "jdbc:mysql://127.0.0.1:3306/dp1";
+            String username = "root";
+            String password = "681219";
+            Connection conn = DriverManager.getConnection(url, username, password);
+            
+            
+            //定义SQL语句
+            String sql = "update dp1 set salary = 2000 where id = 1";  //update dp1 set salary = 2000 where id = 1;
+            
+            
+            //获取执行SQL对象
+            Statement stmt = conn.createStatement();
+            //执行SQL
+            int update = stmt.executeUpdate(sql);
+            //处理返回结果
+            System.out.println(update);
+            
+            
+            //释放资源
+            stmt.close();
+            conn.close();

@@ -1,0 +1,111 @@
+javaScript对象
+
+Array
+  javaScript Array对象用于定义数组
+  定义：
+    var 变量名 = new Array(元素列表); //方式一
+	  var arr = new Array(1.2,3);
+	var 变量名 = [元素列表]; //方式二
+	  var arr = [1,2,3];
+  访问
+    arr[索引] = 值；
+	arr[0] = 1;
+注意：JS数组类似于java集合，长度，类型都可变
+
+String
+  定义
+    var 变量名 = new String(s)；方式一
+	  var str = new String("hello");
+	var 变量名 = s; //方式二
+	  var str = "hello";
+	  var str = 'hello';
+	
+  属性：
+    length  字符串长度
+  方法：
+    charAt();  返回在指定位置的字符
+	indexOf();  检索字符串
+	
+自定义对象：
+  格式：
+    var 对象名称 = {
+	                属性名称1 ：属性值1，
+					属性名称2 ：属性值2，
+					...
+					函数名称：function（形参列表）{}
+					...
+	                };
+					
+					
+Window
+  window：浏览窗口对象
+  获取：直接使用window，其中window可以省略
+  window.alert("abc");
+  属性：获取其他BOM对象
+  history
+  navigator
+  screen
+  location
+  方法
+    alert（）       显示带有一段消息和一个确认按钮的警告框
+	confirm（）     显示带有一段消息以及确认按钮和取消按钮的对话框
+	setInterval（） 按照指定的周期(以毫秒机)来调用函数或计算表达式
+	setTimeout（）  在指定的毫秒数后调用函数或计算表达式
+	
+BOM
+  浏览器对象模型
+  javaScript将浏览的各个组成部分封装为对象
+  组成：
+     window：浏览窗口对象
+	 navigator：浏览器对象
+	 screen：屏幕对象
+	 history：历记录对象
+	 location：地址栏对象
+	 
+History:
+    history：历史记录
+	获取：使用window.history获取，其中window可以省略
+	  window.history.方法();
+	  history.方法();
+	方法
+	  back()    加载history列表中的前一个地址
+	  forward() 加载history列表中的后一个地址
+	
+Location
+    地址栏对象
+	获取：使用window.location获取，其中window可以省略
+	window.location.方法名（）；
+	location.方法名();
+	属性：
+	  href  设置或返回完整的URL
+	  
+	  
+DOM
+  文档对象模型
+  将标记语言的各个组成部分封装为对象
+  DOM定义了访问HTML和XML文档的标准
+  DOM 被分为3个不同部分
+   核心DOM：针对任何结构化文档的标准模型
+    document：整个文档对象
+	element：元素对象
+	attribute：属性对象
+	text：文本对象
+	comment：注释对象
+   XML DOM : 针对XML文档的标准模型
+   HTML DOM : 针对HTML文档的标准模型
+    image: <img>
+	Button : <input type = "button">
+	 
+  javaScript通过DOM，就能够对HTML进行操作了
+    改变html元素的内容
+	改变html元素的样式
+	对html DOM 事件作出反应
+	添加和删除html元素
+	
+  获取Elenment对象
+    获取：使用Document对象的方法来获取
+	  getElementByld: 根据id属性值获取，返回一个Element对象
+	  getElementsByTagName: 根据标签名称获取，返回一个Element对象数组
+	  getElementsByName：根据name属性值获取，返回Element对象数组
+	  getElementsByClassName：根据class属性值获取，返回Element对象数组
+  常见HTML Element对象的使用

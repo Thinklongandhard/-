@@ -1,0 +1,30 @@
+标签
+
+<!DOCTYPE html>  //文档类型的声明标签，采用html来显示
+<html lang="en"> //定义当前文档显示的语言，en英文，zh-CN中午
+
+<head>
+    <meta charset="UTF-8">  //选择字符集 -UTF-8（GB2312、BIG5、GBK....）
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body> 
+      //标题标签
+
+    <h1>标题标签</h1>
+    <h2>标题一共六级</h2>
+    <h3>文字加粗</h3>
+    <h4>由大到小依次递减</h4>
+    <h5>h数值越大，子越小</h5>
+    <h6>记得保存</h6>
+
+    //段落和换行标签
+<!-- （p是段落标签 ），， br 表示break， br / 是换行标签（强制换行）  -->
+    <p>我是<br />你爹</p> 
+    <p>我是李婷</p>
+
+</body>
+
+</html>
